@@ -1,41 +1,59 @@
 document.getElementById("aiForm").addEventListener("submit", function(event) {
-  event.preventDefault();  // Prevent default form submission
+  event.preventDefault();  // Предотвращаем отправку формы
 
-  const question = document.getElementById("question").value;
+  const question = document.getElementById("question").value.trim().toLowerCase();
   const responseElement = document.getElementById("response");
   const answerElement = document.getElementById("answer");
 
-  // Check if the input is not empty
-  if (!question.trim()) {
+  // Проверка, чтобы вопрос не был пустым
+  if (!question) {
     alert("Лутфан саволи дурустро пурсед.");
     return;
   }
 
-  // Show loading message
+  // Показать сообщение о загрузке
   answerElement.textContent = "Шумороро меҷӯям...";
   responseElement.style.display = "block";
 
-  // Simulating AI response (you can replace this with any AI-like behavior)
-  setTimeout(() => {
-    let answer = " ";
+  // Определим ключевые слова и ответы
+  const keywords = {
+    "салом": "Алейкум Салом! Умедворем шумо хуб ҳастед ба шумо чӣ гуна кӯмак расонида метавонем?",
+    "нам": "Ман Jumma AI ҳастам!",
+    "хубӣ": "Ман хубам, шукр!",
+    "президент": "Президент Ҷумҳурии Тоҷикистон Эмомали Рахмон мебошад.",
+    "китоб": "Барои хондан ман тавсия медиҳам 'Албатта ман тоҷик'.",
+    "футбол": "Интизор шавед, футбал як чизи мунтазам аст.",
+    "шумо кӣ": "Ман роботам, кӯмак кунам.",
+    "кӯмак": "Барои кӯмак ба ман савол пурсида метавонед.",
+    "кор": "Кор бо ман қулай аст, як савол пурсида метавонед.",
+    "хурсандӣ": "Хурсандии инсонӣ муҳим аст! Як каме хумор мехоҳед?",
+    "мавқеъ": "Мавқеи ман дар интернет аст. Огоҳии бештар пайдо кунед.",
+    "дуст": "Дӯстӣ бояд бо муҳаббат ва эҳтиром бошад.",
+    "муддат": "Муддати саволҳо ва ё идеяҳо кам нест!",
+    "зиндагӣ": "Зиндагӣ, муқаррароти беҳтарин дар мо аст. Эҳсос кун!",
+    "савол": "Саволи хуби шумо аст! Даромадан эҳсос мекунам.",
+    "равшанӣ": "Таҳқиқ ва дурустӣ, ҳар вақте зарур аст!"
+  };
 
-    // Simple AI-like responses based on the question
-    if (question.toLowerCase().includes("салом")) {
-      answer += "Алейкум салом! Умедворем ки шумо хуб ҳастед ба шумо чӣ гуна кӯмак расонида метавонем?";
-    } else if (question.toLowerCase().includes("салом алейкум")) {
-      answer += "Алейкум салом! Умедворем ки шумо хуб ҳастед ба шумо чӣ гуна кӯмак расонида метавонем?";
-    } else if (question.toLowerCase().includes("Ассалом")) {
-      answer += "Алейкум салом! Умедворем ки шумо хуб ҳастед ба шумо чӣ гуна кӯмак расонида метавонем?";
-    } else if (question.toLowerCase().includes("Шумо чӣ вазифаро иҷро мекунед?")) {
-      answer += "Ман Jumma Ai дар масъалаҳои исломи дар доираи донишҳоям ба шумо ҷавоб медиҳам";
-    } else if (question.toLowerCase().includes("Шумо ки?")) {
-      answer += "Ман Jumma Ai дар масъалаҳои исломи дар доираи донишҳоям ба шумо ҷавоб медиҳам";
-    } else if (question.toLowerCase().includes("Сураи Фотиҳа аз чанд оят иборат аст?")) {
-      answer += "Сураи Фотиҳа аввалин сура дар Қуръони Карим буда аз 7 оят иборат аст, ";
-    } else {
-      answer += "Ман ҳоло ҷавоб надорам, аммо ман меомузам!";
+  // Логика ответа на основе ключевых слов
+  setTimeout(() => {
+    let answer = "Ҷавоби ИИ: ";
+
+    // Проверяем наличие ключевых слов в вопросе
+    let foundKeyword = false;
+
+    for (let keyword in keywords) {
+      if (question.includes(keyword)) {
+        answer = keywords[keyword];
+        foundKeyword = true;
+        break; // Выход из цикла, если нашли ключевое слово
+      }
+    }
+
+    if (!foundKeyword) {
+      answer = "Ман ҳоло ҷавоб надорам, аммо ман мегузорам!";
     }
 
     answerElement.textContent = answer;
-  }, 1000);  // Simulating a delay for AI response
+  }, 1000);  // Симуляция задержки при ответе ИИ
 });
