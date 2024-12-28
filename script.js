@@ -12,7 +12,7 @@ document.getElementById("aiForm").addEventListener("submit", function(event) {
   }
 
   // Показать сообщение о загрузке
-  answerElement.textContent = "Шумороро меҷӯям...";
+  answerElement.textContent = "Looking books about your question...";
   responseElement.style.display = "block";
 
   // Определим ключевые слова и ответы
